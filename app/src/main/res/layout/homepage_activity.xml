@@ -4,53 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginHorizontal="20dp"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".activities.DataReceiverActivity">
+    tools:context=".activities.HomePageActivity">
 
-    <TextView
+    <ImageButton
+        android:id="@+id/ib_logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/headingMainActivity"
-        android:text="From Main Activity"
-        android:layout_marginTop="10dp"
-        android:textSize="30dp"
-        android:textStyle="bold"
+        android:layout_gravity="end"
+        android:src="@drawable/baseline_logout_24" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_users"
+        android:text="Users"
+        android:layout_marginTop="50dp"
+        android:gravity="center_horizontal"
 
         />
 
-    <TextView
-        android:layout_width="match_parent"
+    <Button
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_NameMainActivity"
+        android:id="@+id/btn_profile"
+        android:text="Profile"
         android:layout_marginTop="10dp"
-        android:hint="Name"
-        android:textSize="28dp" />
+        android:gravity="center_horizontal"
 
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_EmailMainActivity"
-        android:layout_marginTop="10dp"
-        android:hint="Email"
-        android:textSize="28dp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvPhone"
-        android:layout_marginTop="10dp"
-        android:hint="Password"
-        android:textSize="28dp" />
+        />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/headingPrefs"
         android:text="From Shared Prefs"
-        android:layout_marginTop="170dp"
+        android:layout_marginTop="50dp"
         android:textSize="30dp"
         android:textStyle="bold"
 
@@ -72,16 +62,7 @@
         android:hint="Email"
         android:textSize="28dp" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_logout"
-        android:text="Log Out"
-        android:layout_marginTop="50dp"
-        android:gravity="center_horizontal"
-
-        />
-
+   
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_call"
         android:layout_width="wrap_content"

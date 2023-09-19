@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">RealEstate</string>
     <string name="Uname_noNum">Username must not contain any number or special character</string>
 </resources>

@@ -6,16 +6,28 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.example.myapplication.Validator
+import androidx.room.Room
 import com.example.myapplication.dataStorage.SharedPrefs
+import com.example.myapplication.dataStorage.room.DataBaseBuilder
+import com.example.myapplication.dataStorage.room.DataBaseHelper
+import com.example.myapplication.dataStorage.room.UserEntity
+//import androidx.room.Room
+import com.example.myapplication.utils.Validator
+//import com.example.myapplication.dataStorage.room.DataBaseHelper
+//import com.example.myapplication.dataStorage.room.UserEntity
 import com.example.myapplication.databinding.SignupActivityBinding
 import com.example.myapplication.global.GlobalVariables
 import com.example.myapplication.models.User
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+//import kotlinx.coroutines.GlobalScope
+//import kotlinx.coroutines.launch
 import java.util.Calendar
 
 
 class SignupActivity : AppCompatActivity() {
     private lateinit var binding: SignupActivityBinding
+    private lateinit var userDatabase: DataBaseHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,29 +35,29 @@ class SignupActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-//        val sP: SharedPrefs = SharedPrefs(this)
-        val validate = Validator(this)
+        title = "SignUp"
+
+        val sP: SharedPrefs = SharedPrefs(this)
+
+        Log.d("BeforeDb", "This is before db call")
+
+
+        userDatabase = DataBaseBuilder.getInstance(this)
 
         binding.btnSignup.setOnClickListener {
 
-            val userName = binding.etName.text.toString().trim()
-            val userPhone = binding.etPhone.text.toString().trim()
-            var userEmail = binding.etEmail.text.toString().trim()
-            var userPassword = binding.etPass.text.toString().trim()
-
-            val bundle = Bundle()
-
 
             val obj = User(
-                userName,
-                userPhone,
-                userEmail,
-                userPassword
+                binding.etName.text.toString().trim(),
+                binding.etPhone.text.toString().trim(),
+                binding.etEmail.text.toString().trim(),
+                binding.etPass.text.toString().trim()
             )
-            val nameError = validate.validateUserName(obj.name)
-            val phoneError = validate.validatePhone(obj.phone)
-            val emailError = validate.validateEmail(obj.email)
-            val passwordError = validate.validatePassword(obj.password)
+
+            val nameError = Validator.validateUserName(obj.name)
+            val phoneError = Validator.validatePhone(obj.phone)
+            val emailError = Validator.validateEmail(obj.email)
+            val passwordError = Validator.validatePassword(obj.password)
 
             if (nameError.isNotEmpty()) {
                 binding.etName.error = nameError
@@ -67,30 +79,25 @@ class SignupActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-
-//            sP.saveString(GlobalVariables.userName, obj.name)
-//            sP.saveString(GlobalVariables.userEmail, obj.email)
-
-
-//            sP.saveString("name", obj.name)
-//                val myEdit: SharedPreferences.Editor = sPrefs.edit()
-//                myEdit.putString("name", obj.name)
-//                myEdit.putString("phone", userPhone)
-//                myEdit.putString("email", userEmail)
-//                myEdit.putString("password", userPassword)
-//
-//                myEdit.commit()
-            //scope function
-            bundle.apply {
-                putString(GlobalVariables.userName, userName)
-                putString(GlobalVariables.userEmail, userEmail)
-                putString(GlobalVariables.userPhone, userPhone)
+            sP.saveString(GlobalVariables.userName, obj.name)
+            sP.saveString(GlobalVariables.userEmail, obj.email)
+            sP.saveBoolean(GlobalVariables.isLoggedIn, true)
+            GlobalScope.launch {
+                userDatabase.userDao().insertUser(
+                    UserEntity(
+                        0,
+                        obj.name,
+                        obj.phone,
+                        obj.email,
+                        obj.password
+                    )
+                )
             }
-            val intent = Intent(this@SignupActivity, DataReceiverActivity::class.java)
-            intent.putExtras(bundle)
+            val intent = Intent(this@SignupActivity, HomePageActivity::class.java)
             startActivity(intent)
             finish()
         }
+
         binding.editText.setOnClickListener {
             showDatePickerDialog()
         }
@@ -114,12 +121,10 @@ class SignupActivity : AppCompatActivity() {
                 // Update the EditText with the selected date
                 val selectedDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
                 binding.editText.setText(selectedDate)
-                val livedmonth = selectedMonth - month
-                Log.d("months", "$selectedMonth")
+
             },
             year, month, day
         )
-
         // Show the date picker dialog
         datePickerDialog.show()
     }

@@ -7,8 +7,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.myapplication.R
+import com.example.myapplication.dataStorage.room.UserEntity
 
-class adapter(private val songs: List<String>) : Adapter<adapter.MyViewHolder>() {
+class adapter(
+    private val userList: MutableList<UserEntity>,
+    private val itemClickListner: ItemClickListnerInterface
+) : Adapter<adapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val inflater: LayoutInflater = LayoutInflater.from(parent.context)
@@ -17,12 +21,27 @@ class adapter(private val songs: List<String>) : Adapter<adapter.MyViewHolder>()
     }
 
     class MyViewHolder(view: View) : ViewHolder(view) {
-        var tvSongs: TextView = itemView.findViewById<TextView>(R.id.textView)
+
+        var tvName: TextView = itemView.findViewById<TextView>(R.id.tv_name)
+        var tvEmail: TextView = itemView.findViewById<TextView>(R.id.tv_email)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.tvSongs.text = songs[position]
+        val user = userList[position]
+        holder.tvName.text = user.username
+        holder.tvEmail.text = user.email
+
+        holder.itemView.setOnClickListener {
+            itemClickListner.onItemClick(position)
+        }
     }
 
-    override fun getItemCount() = songs.size
+    override fun getItemCount() = userList.size
+
+    // Update data when it changes
+    fun updateData(newList: List<UserEntity>) {
+        userList.clear()
+        userList.addAll(newList)
+        notifyDataSetChanged()
+    }
 }

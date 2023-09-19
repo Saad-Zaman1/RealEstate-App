@@ -1,15 +1,15 @@
-package com.example.myapplication
+package com.example.myapplication.utils
 
 import android.content.Context
-import android.widget.EditText
+import com.example.myapplication.R
 
-class Validator(private val context: Context) {
+object Validator {
     fun validateUserName(text: String): String {
         if (text.isNotEmpty()) {
             if (text.length > 15) {
                 return "Username is too long"
             } else if (!text.matches(Regex("^[a-zA-Z]+$"))) {
-                return context.resources.getString(R.string.Uname_noNum)
+                return "Username must not contain any number or special character"
             }
         } else {
             return "Please enter Username"

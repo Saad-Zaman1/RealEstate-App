@@ -20,7 +20,7 @@ class SharedPrefs(context: Context) {
     }
 
     fun saveBundle(key: String) {
-        
+
     }
 
 
@@ -30,9 +30,9 @@ class SharedPrefs(context: Context) {
         return sharedPreferences.getString(key, value) ?: value
     }
 
-//    fun getBoolean(key: String, value: Boolean): Boolean {
-//        return sharedPreferences.getBoolean(key, value) ?: value
-//    }
+    fun getBoolean(key: String): Boolean {
+        return sharedPreferences.getBoolean(key, false)
+    }
 
     fun clearPrefs() {
         sharedPreferences.edit().clear().apply()
