@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
     tools:context=".activities.HomePageActivity">
 
     <ImageButton
         android:id="@+id/ib_logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
         android:src="@drawable/baseline_logout_24" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:id="@+id/btn_users"
         android:text="Users"
         android:layout_marginTop="50dp"
@@ -28,50 +28,24 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_users"
         android:id="@+id/btn_profile"
+        android:layout_centerInParent="true"
         android:text="Profile"
         android:layout_marginTop="10dp"
         android:gravity="center_horizontal"
 
         />
 
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/headingPrefs"
-        android:text="From Shared Prefs"
-        android:layout_marginTop="50dp"
-        android:textSize="30dp"
-        android:textStyle="bold"
-
-        />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_NamePrefs"
+        android:id="@+id/btn_addproperty"
+        android:layout_below="@+id/btn_profile"
+        android:layout_centerInParent="true"
+        android:text="Add Property"
         android:layout_marginTop="10dp"
-        android:hint="Name"
-        android:textSize="28dp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_emailPrefs"
-        android:layout_marginTop="10dp"
-        android:hint="Email"
-        android:textSize="28dp" />
-
-   
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btn_call"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
-        app:elevation="6dp"
-        app:pressedTranslationZ="12dp"
-        android:src="@drawable/baseline_call_24" />
+        android:gravity="center_horizontal" />
 
 
-</LinearLayout>
+</RelativeLayout>

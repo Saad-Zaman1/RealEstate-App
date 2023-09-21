@@ -19,21 +19,14 @@ class HomePageActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        title = "HomePage"
+
         val sharedPref = SharedPrefs(this@HomePageActivity)
-        binding.btnCall.setOnClickListener {
-            val intent = Intent(
-                Intent.ACTION_DIAL,
-                Uri.parse("tel:${sharedPref.getString(GlobalVariables.userPhone, "")}")
-            )
-            Toast.makeText(this, "Dialing", Toast.LENGTH_SHORT).show()
-            startActivity(intent)
-        }
-        binding.tvNamePrefs.text = sharedPref.getString(GlobalVariables.userName, "")
-        binding.tvEmailPrefs.text = sharedPref.getString(GlobalVariables.userEmail, "")
+//        binding.tvNamePrefs.text = sharedPref.getString(GlobalVariables.userName, "")
+//        binding.tvEmailPrefs.text = sharedPref.getString(GlobalVariables.userEmail, "")
         binding.ibLogout.setOnClickListener {
             sharedPref.clearPrefs()
             sharedPref.saveBoolean(GlobalVariables.isLoggedIn, false)
+
             val intent = Intent(this, SignupActivity::class.java)
             startActivity(intent)
             finish()
@@ -45,6 +38,10 @@ class HomePageActivity : AppCompatActivity() {
         }
         binding.btnUsers.setOnClickListener {
             val intent = Intent(this, RecyclerActivity::class.java)
+            startActivity(intent)
+        }
+        binding.btnAddproperty.setOnClickListener {
+            val intent = Intent(this, AddPropertyActivity::class.java)
             startActivity(intent)
         }
     }

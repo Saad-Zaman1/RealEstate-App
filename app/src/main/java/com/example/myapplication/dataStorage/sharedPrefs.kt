@@ -19,10 +19,6 @@ class SharedPrefs(context: Context) {
         editer.putBoolean(key, value).apply()
     }
 
-    fun saveBundle(key: String) {
-
-    }
-
 
     //Getting Prefs values
 

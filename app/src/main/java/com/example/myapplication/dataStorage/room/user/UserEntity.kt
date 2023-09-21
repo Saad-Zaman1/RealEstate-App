@@ -1,4 +1,4 @@
-package com.example.myapplication.dataStorage.room
+package com.example.myapplication.dataStorage.room.user
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -8,10 +8,8 @@ import androidx.room.PrimaryKey
 data class UserEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
-    val username: String,
+    var username: String,
     val phone: String,
     val email: String,
     val password: String,
 )
-
-//    @ColumnInfo(name = "name")

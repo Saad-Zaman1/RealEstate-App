@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.myapplication.R
-import com.example.myapplication.dataStorage.room.UserEntity
+import com.example.myapplication.dataStorage.room.user.UserEntity
 
 class adapter(
     private val userList: MutableList<UserEntity>,

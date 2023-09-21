@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.AddPropertyActivity">
+
+    <TextView
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Property Detail"
+        android:textSize="20dp"
+        android:layout_margin="20dp"
+
+        />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutCity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="City"
+        android:layout_marginBottom="16dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextCiti"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Address -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Address"
+        android:layout_marginBottom="16dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Rooms -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutRooms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Rooms"
+        android:layout_marginBottom="16dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextRooms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Kitchen -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutKitchen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Kitchen"
+        android:layout_marginBottom="16dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextKitchen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Floors -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutFloors"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Floors"
+        android:layout_marginBottom="16dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextFloors"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Furnished -->
+    <RadioGroup
+        android:id="@+id/radioGroupFurnished"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp">
+
+        <RadioButton
+            android:id="@+id/radioButtonFurnished"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Furnished" />
+
+        <RadioButton
+            android:id="@+id/radioButtonNonFurnished"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Non-furnished" />
+    </RadioGroup>
+
+    <!-- Sale/Rent Radio Group -->
+    <RadioGroup
+        android:id="@+id/radioGroupSaleRent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp">
+
+        <RadioButton
+            android:id="@+id/radioButtonSale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sale" />
+
+        <RadioButton
+            android:id="@+id/radioButtonRent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rent" />
+    </RadioGroup>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Save" />
+
+</LinearLayout>

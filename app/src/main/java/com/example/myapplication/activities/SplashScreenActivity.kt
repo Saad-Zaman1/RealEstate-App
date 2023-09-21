@@ -18,7 +18,7 @@ class SplashScreenActivity : AppCompatActivity() {
         iv_home.alpha = 0f
         iv_home.animate().setDuration(1000).alpha(1f).withEndAction {
             if (!sp.getBoolean(GlobalVariables.isLoggedIn)) {
-                val i = Intent(this, SignupActivity::class.java)
+                val i = Intent(this, LoginActivity::class.java)
                 startActivity(i)
                 finish()
 
