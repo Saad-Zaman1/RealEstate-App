@@ -1,142 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:padding="16dp"
+    android:scrollbarThumbVertical="@null"
     tools:context=".activities.AddPropertyActivity">
 
-    <TextView
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add Property Detail"
-        android:textSize="20dp"
-        android:layout_margin="20dp"
-
-        />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayoutCity"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="City"
-        android:layout_marginBottom="16dp">
+        android:layout_height="wrap_content">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextCiti"
+        <TextView
+            android:id="@+id/tvaddproperty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:text="Add Property"
+            android:gravity="center"
+            android:textSize="25sp"
+            android:textColor="@color/app_theme"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp" />
 
-    <!-- Address -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayoutAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Address"
-        android:layout_marginBottom="16dp">
+        <!-- City Dropdown (Spinner) -->
+        <Spinner
+            android:id="@+id/spinnerCity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvaddproperty"
+            android:layout_marginTop="26dp"
+            android:hint="Select City" />
 
-        <com.google.android.material.textfield.TextInputEditText
+        <!-- Area/Address -->
+        <EditText
             android:id="@+id/editTextAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_below="@id/spinnerCity"
+            android:layout_marginTop="16dp"
+            android:hint="Address or Area" />
 
-    <!-- Rooms -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayoutRooms"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Rooms"
-        android:layout_marginBottom="16dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextRooms"
+        <!-- Property Size (Spinner) -->
+        <Spinner
+            android:id="@+id/spinnerSize"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_below="@id/editTextAddress"
+            android:layout_marginTop="16dp"
+            android:hint="Select Property Size (Marla)" />
 
-    <!-- Kitchen -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayoutKitchen"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Kitchen"
-        android:layout_marginBottom="16dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextKitchen"
+        <!-- Property Name -->
+        <EditText
+            android:id="@+id/editTextPropertyName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_below="@id/spinnerSize"
+            android:layout_marginTop="16dp"
+            android:maxLines="1"
+            android:hint="Property Name" />
 
-    <!-- Floors -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayoutFloors"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Floors"
-        android:layout_marginBottom="16dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextFloors"
+        <!-- Number of Rooms (Spinner) -->
+        <Spinner
+            android:id="@+id/spinnerRooms"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_below="@id/editTextPropertyName"
+            android:layout_marginTop="16dp"
+            android:hint="Select Number of Rooms" />
 
-    <!-- Furnished -->
-    <RadioGroup
-        android:id="@+id/radioGroupFurnished"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="16dp">
+        <!-- Number of Kitchens (Spinner) -->
+        <Spinner
+            android:id="@+id/spinnerKitchens"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/spinnerRooms"
+            android:layout_marginTop="26dp"
+            android:hint="Select Number of Kitchens" />
 
-        <RadioButton
-            android:id="@+id/radioButtonFurnished"
+        <!-- Number of Kitchens (Spinner) -->
+        <Spinner
+            android:id="@+id/spinnerFloor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/spinnerKitchens"
+            android:layout_marginTop="26dp"
+            android:hint="Select Number of Floors" />
+
+        <!-- Number of Bathrooms (Spinner) -->
+        <Spinner
+            android:id="@+id/spinnerBathrooms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/spinnerFloor"
+            android:layout_marginTop="26dp"
+            android:hint="Select Number of Bathrooms" />
+
+        <!-- Furnished (Radio Group) -->
+        <RadioGroup
+            android:id="@+id/radioGroupFurnished"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/spinnerBathrooms"
+            android:layout_marginTop="26dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioButtonFurnished"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="Furnished" />
+
+            <RadioButton
+                android:id="@+id/radioButtonNonFurnished"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Non-Furnished" />
+        </RadioGroup>
+
+        <!-- Sale/Rent (Radio Group) -->
+        <RadioGroup
+            android:id="@+id/radioGroupSaleRent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/radioGroupFurnished"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioButtonSale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="Sale" />
+
+            <RadioButton
+                android:id="@+id/radioButtonRent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rent" />
+        </RadioGroup>
+
+        <!-- Price -->
+        <EditText
+            android:id="@+id/editTextPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/radioGroupSaleRent"
+            android:layout_marginTop="16dp"
+            android:hint="Price" />
+
+        <!-- Submit Button -->
+        <Button
+            android:id="@+id/buttonSubmit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Furnished" />
-
-        <RadioButton
-            android:id="@+id/radioButtonNonFurnished"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Non-furnished" />
-    </RadioGroup>
-
-    <!-- Sale/Rent Radio Group -->
-    <RadioGroup
-        android:id="@+id/radioGroupSaleRent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="16dp">
-
-        <RadioButton
-            android:id="@+id/radioButtonSale"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sale" />
-
-        <RadioButton
-            android:id="@+id/radioButtonRent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Rent" />
-    </RadioGroup>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Save" />
-
-</LinearLayout>
+            android:layout_below="@id/editTextPrice"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="24dp"
+            android:text="Submit" />
+    </RelativeLayout>
+</ScrollView>

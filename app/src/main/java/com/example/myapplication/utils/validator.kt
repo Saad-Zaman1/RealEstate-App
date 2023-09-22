@@ -49,4 +49,23 @@ object Validator {
         }
         return ""
     }
+
+    // Property validation
+    fun checkEmpty(text: String, name: String): String {
+        if (text.isEmpty()) {
+            return "Please enter $name"
+        } else if (name == "price" && text.length < 3) {
+            return "Length should be greater than 3"
+        } else if (text.length < 10 && name != "price") {
+            return "Length should be greater than 10"
+        }
+        return ""
+    }
+
+    fun validateSpinner(text: String): String {
+        if (text.contains("Select")) {
+            return "Please enter something"
+        }
+        return ""
+    }
 }

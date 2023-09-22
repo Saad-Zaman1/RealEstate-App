@@ -8,7 +8,7 @@ import com.example.myapplication.dataStorage.room.user.UserEntity
 @Dao
 interface PropertyDetailsDao {
     @Insert()
-    suspend fun insertProperty(user: UserEntity): Long
+    suspend fun insertProperty(propertyDetails: PropertyDetailsEntity): Long
 
     @Update
     suspend fun updateProperty(user: UserEntity)

@@ -14,38 +14,42 @@
         android:layout_alignParentEnd="true"
         android:src="@drawable/baseline_logout_24" />
 
+    <!-- Buttons aligned horizontally at the top -->
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
         android:id="@+id/btn_users"
-        android:text="Users"
-        android:layout_marginTop="50dp"
-        android:gravity="center_horizontal"
-
-        />
-
-    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_users"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:layout_toStartOf="@id/btn_profile"
+        android:text="Users" />
+
+    <Button
         android:id="@+id/btn_profile"
-        android:layout_centerInParent="true"
-        android:text="Profile"
-        android:layout_marginTop="10dp"
-        android:gravity="center_horizontal"
-
-        />
-
-    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btn_addproperty"
-        android:layout_below="@+id/btn_profile"
-        android:layout_centerInParent="true"
-        android:text="Add Property"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:gravity="center_horizontal" />
+        android:text="Profile" />
 
+    <Button
+        android:id="@+id/btn_addproperty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:text="Add Property" />
 
+    <!-- RecyclerView below the buttons -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/btn_addproperty"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:scrollbars="vertical" />
 </RelativeLayout>

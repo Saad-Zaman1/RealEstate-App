@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?><!-- property_item.xml -->
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    style="@style/custom_card_view_style"
+    app:cardElevation="0dp"
+    app:cardCornerRadius="20dp"
+    app:cardBackgroundColor="@color/app_theme"
+    app:cardMaxElevation="2dp"
+    app:cardPreventCornerOverlap="true"
+    android:layout_margin="5dp"
+    android:radius="8dp">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Property Name -->
+        <TextView
+            android:id="@+id/textPropertyName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Property Name"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="#ffffff" />
+
+        <!-- Property Address -->
+        <TextView
+            android:id="@+id/textPropertyAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="123 Main Street, Sample City"
+            android:textSize="18sp"
+            android:textColor="#ffffff" />
+
+        <!-- Property Details (City, Size, Rooms, Kitchens, Bathrooms) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- City -->
+            <TextView
+                android:id="@+id/textPropertyCity"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="City: Lahore"
+                android:textSize="16sp"
+                android:textColor="#ffffff" />
+
+            <!-- Size -->
+            <TextView
+                android:id="@+id/textPropertySize"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Size: 5 Marla"
+                android:textSize="16sp"
+                android:textColor="#ffffff" />
+        </LinearLayout>
+
+        <!-- Property Details (Kitchens, Bathrooms) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- Rooms -->
+            <TextView
+                android:id="@+id/textPropertyRooms"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Rooms: 3"
+                android:textSize="16sp"
+                android:textColor="#ffffff" />
+            <!-- Kitchens -->
+            <TextView
+                android:id="@+id/textPropertyKitchens"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Kitchens: 2"
+                android:textSize="16sp"
+                android:textColor="#ffffff" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- Furnished/Non-furnished -->
+            <TextView
+                android:id="@+id/textPropertyFurnished"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Furnished: Yes"
+                android:textSize="16sp"
+                android:textColor="#ffffff" />
+            <!-- Bathrooms -->
+            <TextView
+                android:id="@+id/textPropertyBathrooms"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Bathrooms: 2"
+                android:textSize="16sp"
+                android:textColor="#ffffff" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- Sale/Rent -->
+            <TextView
+                android:id="@+id/textPropertySaleRent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="For: Sale"
+                android:textSize="16sp"
+                android:textColor="#ffffff" />
+            <!-- Price -->
+            <TextView
+                android:id="@+id/textPropertyPrice"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Price"
+                android:textSize="16sp"
+                android:textColor="#ffffff" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

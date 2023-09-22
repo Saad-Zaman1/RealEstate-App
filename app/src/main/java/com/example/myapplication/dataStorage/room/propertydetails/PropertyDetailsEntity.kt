@@ -7,10 +7,13 @@ import androidx.room.PrimaryKey
 class PropertyDetailsEntity(
     @PrimaryKey(autoGenerate = true)
     val propertyDetailsId: Long,
-    var rooms: Int,
-    val kitchen: Int,
-    val floors: Int,
-    val furnished: Boolean,
-    val sale: Boolean,
-    val rent: Boolean
+    val propertyId: Long,
+    val propertyName: String,
+    val price: String,
+    var rooms: String,
+    val kitchen: String,
+    val floors: String,
+    val bathrooms: String,
+    val furnished: String,
+    val sale: String
 )

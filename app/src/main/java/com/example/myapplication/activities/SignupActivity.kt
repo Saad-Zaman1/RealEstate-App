@@ -121,7 +121,7 @@ class SignupActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-        binding.flo
+
 
     }
 
