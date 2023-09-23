@@ -3,6 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="underline">#BDB8B8</color>
     <color name="app_theme">#009dff</color>
     <color name="app_theme_light">#f6fbff</color>
     <color name="edit_text_button">#03A9f4</color>

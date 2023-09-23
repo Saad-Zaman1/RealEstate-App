@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <item
+        android:id="@+id/menu_filter"
+        android:icon="@drawable/baseline_filter_list_24"
+        android:title="Filter" />
+
+    <item
+        android:id="@+id/menu_all_properties"
+        android:icon="@drawable/baseline_density_small_24"
+        android:title="All Properties" />
+    <item
+        android:id="@+id/menu_my_property"
+        android:icon="@drawable/baseline_home_work_24"
+        android:title="My Properties" />
+    <item
+        android:id="@+id/menu_add_property"
+        android:icon="@drawable/baseline_add_home_work_24"
+        android:title="Add Property" />
+
+    <item
+        android:id="@+id/menu_all_users"
+        android:icon="@drawable/baseline_person_search_24"
+        android:title="All Sellers" />
+
+    <item android:title="Profile">
+        <menu>
+            <item
+                android:id="@+id/menu_my_profile"
+                android:icon="@drawable/baseline_person_24"
+                android:title="My Profile" />
+            <item
+                android:id="@+id/menu_logout"
+                android:icon="@drawable/baseline_logout_24"
+                android:title="Logout" />
+        </menu>
+
+    </item>
+
+
+</menu>

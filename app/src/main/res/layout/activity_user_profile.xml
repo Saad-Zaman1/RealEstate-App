@@ -1,184 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="16dp"
     tools:context=".activities.UserProfileActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="25dp"
-            android:text="Username: " />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_usernamefromdb"
-            android:textSize="20dp"
-            android:text="Name" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="25dp"
-            android:text="Username: " />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_useremailfromdb"
-            android:textSize="20dp"
-            android:text="Email" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="25dp"
-            android:text="Username: " />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_userphonefromdb"
-            android:textSize="20dp"
-            android:text="Phone" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:gravity="center">
-
-        <EditText
-            android:id="@+id/et_usernameupdate"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:inputType="text"
-            android:hint="Username" />
-
-        <ImageButton
-            android:id="@+id/ib_updatename"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/baseline_check_24" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:gravity="center">
-
-        <EditText
-            android:id="@+id/et_userphoneupdate"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:inputType="text"
-            android:hint="Username" />
-
-        <ImageButton
-            android:id="@+id/ib_updatephone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/baseline_check_24" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:gravity="center">
-
-        <EditText
-            android:id="@+id/et_userpasswordupdate"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:inputType="text"
-            android:hint="Username" />
-
-        <ImageButton
-            android:id="@+id/ib_updatepassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/baseline_check_24" />
-    </LinearLayout>
-
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:id="@+id/btnupdate"
-        android:text="Update" />
-
+    <!-- Heading -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Bmi"
-        android:textSize="30dp"
-        android:gravity="center"
-        android:textStyle="bold" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:gravity="center"
-        android:layout_height="wrap_content">
-
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:gravity="start" />
-
-        <EditText
-            android:id="@+id/editTextText2"
-            android:layout_margin="20dp"
-            android:layout_width="70dp"
-
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:hint="weight" />
-
-        <EditText
-            android:id="@+id/editTextText3"
-            android:layout_margin="20dp"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:hint="text" />
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/button"
+        android:id="@+id/textViewHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Calculate" />
-</LinearLayout>
+        android:text="Update Profile"
+        android:textSize="24sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp" />
+
+    <!-- Username -->
+    <TextView
+        android:id="@+id/textViewUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Username:"
+        android:layout_below="@id/textViewHeading"
+        android:layout_marginTop="24dp" />
+
+    <EditText
+        android:id="@+id/editTextUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewUsername"
+        android:layout_marginTop="8dp"
+        android:hint="Enter your username" />
+
+    <!-- Phone -->
+    <TextView
+        android:id="@+id/textViewPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Phone:"
+        android:layout_below="@id/editTextUsername"
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:id="@+id/editTextPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewPhone"
+        android:layout_marginTop="8dp"
+        android:hint="Enter your phone number" />
+
+    <!-- Old Password -->
+    <TextView
+        android:id="@+id/textViewOldPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Old Password:"
+        android:layout_below="@id/editTextPhone"
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:id="@+id/editTextOldPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewOldPassword"
+        android:layout_marginTop="8dp"
+        android:hint="Enter your old password"
+        android:inputType="textPassword" />
+
+    <!-- New Password -->
+    <TextView
+        android:id="@+id/textViewNewPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Password:"
+        android:layout_below="@id/editTextOldPassword"
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:id="@+id/editTextNewPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewNewPassword"
+        android:layout_marginTop="8dp"
+        android:hint="Enter your new password"
+        android:inputType="textPassword" />
+
+    <!-- Update Button -->
+    <Button
+        android:id="@+id/buttonUpdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/editTextNewPassword"
+        android:layout_marginTop="24dp" />
+</RelativeLayout>

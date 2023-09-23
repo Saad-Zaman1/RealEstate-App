@@ -30,7 +30,6 @@ class adapter(
         val user = userList[position]
         holder.tvName.text = user.username
         holder.tvEmail.text = user.email
-
         holder.itemView.setOnClickListener {
             itemClickListner.onItemClick(position)
         }

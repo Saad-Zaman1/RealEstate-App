@@ -8,6 +8,7 @@ class PropertyDetailsEntity(
     @PrimaryKey(autoGenerate = true)
     val propertyDetailsId: Long,
     val propertyId: Long,
+    val size: String,
     val propertyName: String,
     val price: String,
     var rooms: String,

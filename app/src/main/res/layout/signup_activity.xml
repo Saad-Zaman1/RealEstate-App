@@ -139,7 +139,7 @@
                 android:textColor="@color/white"
                 android:id="@+id/btn_signup"
                 android:backgroundTint="@color/app_theme"
-                android:text="Sign in"
+                android:text="Sign up"
                 app:cornerRadius="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -167,7 +167,7 @@
                     android:id="@+id/tv_gotologin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=" Sign Up"
+                    android:text=" Sign In"
                     android:textColor="@color/app_theme"
                     android:textSize="20sp"
                     android:textStyle="bold" />

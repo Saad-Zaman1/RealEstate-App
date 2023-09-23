@@ -6,9 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.myapplication.databinding.PropertyItemBinding
+import com.example.myapplication.interfaces.PropertyClickListnerInterface
 import com.example.myapplication.models.PropertyWithDetails
 
-class PropertyAdapter(private val propertyList: List<PropertyWithDetails>) :
+class PropertyAdapter(
+    private val propertyList: List<PropertyWithDetails>,
+    private val itemclicklistner: PropertyClickListnerInterface
+) :
     Adapter<PropertyAdapter.MyViewHolder>() {
     class MyViewHolder(val binding: PropertyItemBinding) : ViewHolder(binding.root) {
 
@@ -29,16 +33,21 @@ class PropertyAdapter(private val propertyList: List<PropertyWithDetails>) :
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val property = propertyList[position]
-        holder.binding.textPropertyName.text = property.propertyName
-        holder.binding.textPropertyBathrooms.text = property.bathrooms
-        holder.binding.textPropertyCity.text = property.city
-        holder.binding.textPropertyFurnished.text = property.furnished
-        holder.binding.textPropertyPrice.text = property.price
-        holder.binding.textPropertyKitchens.text = property.kitchen
-        holder.binding.textPropertyRooms.text = property.rooms
-        holder.binding.textPropertySaleRent.text = property.sale
-        holder.binding.textPropertyAddress.text = property.address
-
+        holder.binding.let {
+            it.textPropertyName.text = property.propertyName
+            it.textPropertyBathrooms.text = property.bathrooms
+            it.textPropertyCity.text = property.city
+            it.textPropertyFurnished.text = property.furnished
+            it.textPropertyPrice.text = property.price
+            it.textPropertyKitchens.text = property.kitchen
+            it.textPropertyRooms.text = property.rooms
+            it.textPropertySaleRent.text = property.sale
+            it.textPropertyAddress.text = property.address
+            it.textPropertySize.text = property.size
+        }
+        holder.itemView.setOnClickListener {
+            itemclicklistner.onPropertyClick(position)
+        }
     }
 
     override fun getItemCount(): Int {

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Furnished (Radio Group) -->
+    <RadioGroup
+        android:id="@+id/radioGroupFurnished"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radioButtonFurnished"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Furnished" />
+
+        <RadioButton
+            android:id="@+id/radioButtonNonFurnished"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Non-Furnished" />
+    </RadioGroup>
+
+    <!-- Property Size (Spinner) -->
+    <Spinner
+        android:id="@+id/spinnerSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Select Property Size (Marla)">
+
+        <!-- Add options for property size (3 marla, 5 marla, 7 marla, 10 marla) here -->
+    </Spinner>
+    <!-- Sale/Rent (Radio Group) -->
+    <RadioGroup
+        android:id="@+id/radioGroupSaleRent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radioButtonSale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Sale" />
+
+        <RadioButton
+            android:id="@+id/radioButtonRent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rent" />
+    </RadioGroup>
+
+    <!-- City Dropdown (Spinner) -->
+    <Spinner
+        android:id="@+id/spinnerCity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Select City">
+        <!-- Add options for city here -->
+       
+        <!-- Add more cities as needed -->
+    </Spinner>
+
+    <!-- Apply Filters Button -->
+    <Button
+        android:id="@+id/btn_apply_filters"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Apply Filters" />
+</LinearLayout>

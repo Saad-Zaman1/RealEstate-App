@@ -21,4 +21,6 @@ object DataBaseBuilder {
             DataBaseHelper::class.java,
             GlobalVariables.databaseName
         ).build()
+
+
 }

@@ -11,5 +11,5 @@ interface PropertyDetailsDao {
     suspend fun insertProperty(propertyDetails: PropertyDetailsEntity): Long
 
     @Update
-    suspend fun updateProperty(user: UserEntity)
+    suspend fun updateProperty(propertyDetails: PropertyDetailsEntity)
 }
