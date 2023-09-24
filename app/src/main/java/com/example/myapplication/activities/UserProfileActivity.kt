@@ -34,7 +34,6 @@ class UserProfileActivity : AppCompatActivity() {
         val userEmail = sP.getString(GlobalVariables.userEmail, "")
 
         val database = DataBaseBuilder.getInstance(this)
-
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 userData = database.userDao().validateEmail(userEmail)!!
@@ -57,19 +56,10 @@ class UserProfileActivity : AppCompatActivity() {
         binding.buttonUpdate.setOnClickListener {
             val username = binding.editTextUsername.text.toString()
             val userPhone = binding.editTextPhone.text.toString()
-            val oldPassword = binding.editTextOldPassword.text.toString()
-            val newPassword = binding.editTextNewPassword.text.toString()
-            if (oldPassword != userData.password) {
-                binding.editTextOldPassword.error = "Password is not correct"
-                return@setOnClickListener
-            }
-            if (oldPassword == newPassword) {
-                binding.editTextNewPassword.error = "Password can not be same"
-                return@setOnClickListener
-            }
+
             val nameError = Validator.validateUserName(username)
             val phoneError = Validator.validatePhone(userPhone)
-            val passwordError = Validator.validatePassword(newPassword)
+
             if (nameError.isNotEmpty()) {
                 binding.editTextUsername.error = nameError
                 return@setOnClickListener
@@ -80,18 +70,12 @@ class UserProfileActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-
-            if (passwordError.isNotEmpty()) {
-                binding.editTextNewPassword.error = passwordError
-                return@setOnClickListener
-            }
-
             val updatedUser = UserEntity(
                 userData.id,
                 username,
                 userPhone,
                 userEmail,
-                newPassword
+                userData.password
             )
 
             CoroutineScope(Dispatchers.IO).launch {
@@ -101,27 +85,6 @@ class UserProfileActivity : AppCompatActivity() {
             Toast.makeText(this, "Profile Updated", Toast.LENGTH_SHORT).show()
             binding.editTextUsername.text.clear()
             binding.editTextPhone.text.clear()
-            binding.editTextOldPassword.text.clear()
-            binding.editTextNewPassword.text.clear()
-
         }
-//        CoroutineScope(Dispatchers.IO).launch {
-//            userData = database.userDao().validateEmail(userEmail)!!
-//
-//            withContext(Dispatchers.Main) {
-//                // Update UI using data binding
-//                binding.tvUsernamefromdb.text = userData?.username.toString()
-//                binding.tvUseremailfromdb.text = userData?.email.toString()
-//                binding.tvUserphonefromdb.text = userData?.phone.toString()
-//            }
-//        }
-//
-//        binding.ibUpdatename.setOnClickListener {
-//            CoroutineScope(Dispatchers.IO).launch {
-//                userData.username = binding.etUsernameupdate.text.toString()
-//                database.userDao().updateUser(userData)
-//                Log.i("Username", "${userData.username}")
-//            }
-//        }
     }
 }

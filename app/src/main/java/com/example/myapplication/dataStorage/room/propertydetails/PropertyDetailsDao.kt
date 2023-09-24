@@ -1,6 +1,7 @@
 package com.example.myapplication.dataStorage.room.propertydetails
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Update
 import com.example.myapplication.dataStorage.room.user.UserEntity
@@ -12,4 +13,7 @@ interface PropertyDetailsDao {
 
     @Update
     suspend fun updateProperty(propertyDetails: PropertyDetailsEntity)
+
+    @Delete
+    suspend fun deletePropertyDetails(propertyDetails: PropertyDetailsEntity)
 }

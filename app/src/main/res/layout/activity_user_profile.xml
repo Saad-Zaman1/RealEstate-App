@@ -50,42 +50,6 @@
         android:layout_marginTop="8dp"
         android:hint="Enter your phone number" />
 
-    <!-- Old Password -->
-    <TextView
-        android:id="@+id/textViewOldPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Old Password:"
-        android:layout_below="@id/editTextPhone"
-        android:layout_marginTop="16dp" />
-
-    <EditText
-        android:id="@+id/editTextOldPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textViewOldPassword"
-        android:layout_marginTop="8dp"
-        android:hint="Enter your old password"
-        android:inputType="textPassword" />
-
-    <!-- New Password -->
-    <TextView
-        android:id="@+id/textViewNewPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Password:"
-        android:layout_below="@id/editTextOldPassword"
-        android:layout_marginTop="16dp" />
-
-    <EditText
-        android:id="@+id/editTextNewPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textViewNewPassword"
-        android:layout_marginTop="8dp"
-        android:hint="Enter your new password"
-        android:inputType="textPassword" />
-
     <!-- Update Button -->
     <Button
         android:id="@+id/buttonUpdate"
@@ -93,6 +57,6 @@
         android:layout_height="wrap_content"
         android:text="Update"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/editTextNewPassword"
+        android:layout_below="@id/editTextPhone"
         android:layout_marginTop="24dp" />
 </RelativeLayout>

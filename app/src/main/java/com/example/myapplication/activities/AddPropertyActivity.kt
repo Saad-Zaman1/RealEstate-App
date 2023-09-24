@@ -386,7 +386,7 @@ class AddPropertyActivity : AppCompatActivity() {
                         withContext(Dispatchers.Main) {
                             Toast.makeText(
                                 this@AddPropertyActivity,
-                                "Property added with ID: $propertyId",
+                                "Property added",
                                 Toast.LENGTH_SHORT
                             ).show()
                         }

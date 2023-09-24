@@ -3,6 +3,7 @@ package com.example.myapplication.models
 data class PropertyWithDetails(
     val propertyId: Long,
     val propertyDetailsId: Long,
+    val userEmail: String,
     val address: String,
     val city: String,
     val size: String,

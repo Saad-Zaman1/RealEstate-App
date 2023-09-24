@@ -4,14 +4,20 @@ package com.example.myapplication.activities
 import FilterBottomSheetFragment
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.TextView
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.adapter.PropertyAdapter
 import com.example.myapplication.dataStorage.SharedPrefs
 import com.example.myapplication.dataStorage.room.DataBaseBuilder
+import com.example.myapplication.dataStorage.room.properties.PropertyEntity
+import com.example.myapplication.dataStorage.room.propertydetails.PropertyDetailsEntity
 import com.example.myapplication.dataStorage.room.user.UserEntity
 import com.example.myapplication.databinding.HomepageActivityBinding
 import com.example.myapplication.global.GlobalVariables
@@ -28,7 +34,7 @@ class HomePageActivity : AppCompatActivity(), FilterListener, PropertyClickListn
     private lateinit var propertyList: List<PropertyWithDetails>
     private var userpropertytoggle: Boolean = false
     private lateinit var userData: UserEntity
-//    private lateinit var toggle: ActionBarDrawerToggle   //Hammberger sign in the app bar
+    private lateinit var toggle: ActionBarDrawerToggle   //Hammberger sign in the app bar
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,26 +56,29 @@ class HomePageActivity : AppCompatActivity(), FilterListener, PropertyClickListn
 
             withContext(Dispatchers.Main) {
                 // Update UI using data binding
-                usernameTextView.text = userData?.username.toString()
-                emailTextView.text = userData?.email.toString()
-
+                usernameTextView.text = userData.username
+                emailTextView.text = userData.email
             }
         }
-//        // Side drawable code
-//        toggle = ActionBarDrawerToggle(this, binding.drawerLayout, R.string.open, R.string.close)
-//        binding.drawerLayout.addDrawerListener(toggle)
-//        toggle.syncState()
+        // Side drawable code
+        toggle = ActionBarDrawerToggle(this, binding.drawerLayout, R.string.open, R.string.close)
+        binding.drawerLayout.addDrawerListener(toggle)
 
-//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        toggle.syncState()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+
 
 
         binding.navigationView.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.menu_all_properties -> {
                     // Populating all properties in recycler view ! Look for alternate approach
+                    binding.allpropertiesheading.text = "All Properties"
                     database.propertiesDao().getAllProperties().observe(this) { data ->
                         propertyList = data
-                        binding.recyclerView.adapter = PropertyAdapter(propertyList, this)
+                        binding.recyclerView.adapter =
+                            PropertyAdapter(propertyList, this, this)
                     }
                     binding.recyclerView.layoutManager = LinearLayoutManager(this)
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
@@ -84,10 +93,12 @@ class HomePageActivity : AppCompatActivity(), FilterListener, PropertyClickListn
 
                 R.id.menu_my_property -> {
                     userpropertytoggle = true
+                    binding.allpropertiesheading.text = "My Properties"
                     database.propertiesDao().getCurrentUserProperties(userEmail)
                         .observe(this) { data ->
                             propertyList = data
-                            binding.recyclerView.adapter = PropertyAdapter(propertyList, this)
+                            binding.recyclerView.adapter =
+                                PropertyAdapter(propertyList, this, this)
                         }
                     binding.recyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -127,19 +138,19 @@ class HomePageActivity : AppCompatActivity(), FilterListener, PropertyClickListn
             }
             true
         }
-
+//Show all properties in the opening of app
         if (!userpropertytoggle) {
-            // Populating all properties in recycler view
+            binding.allpropertiesheading.text = "All Properties"
             database.propertiesDao().getAllProperties().observe(this) {
                 propertyList = it
-                binding.recyclerView.adapter = PropertyAdapter(propertyList, this)
+                binding.recyclerView.adapter = PropertyAdapter(propertyList, this, this)
             }
             binding.recyclerView.layoutManager = LinearLayoutManager(this)
         }
     }
 
     override fun filterApplied(filteredData: List<PropertyWithDetails>) {
-        binding.recyclerView.adapter = PropertyAdapter(filteredData, this)
+        binding.recyclerView.adapter = PropertyAdapter(filteredData, this, this)
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
     }
 
@@ -167,4 +178,42 @@ class HomePageActivity : AppCompatActivity(), FilterListener, PropertyClickListn
         intent.putExtras(bundle)
         startActivity(intent)
     }
+
+    override fun onPropertyDelete(position: Int) {
+
+        val removeItem = propertyList[position]
+        val database = DataBaseBuilder.getInstance(this@HomePageActivity)
+        val property = PropertyEntity(
+            removeItem.propertyId,
+            removeItem.address,
+            removeItem.city,
+            removeItem.userEmail
+        )
+        val propertyDetail = PropertyDetailsEntity(
+            removeItem.propertyDetailsId,
+            removeItem.propertyId,
+            removeItem.size,
+            removeItem.propertyName,
+            removeItem.price,
+            removeItem.rooms,
+            removeItem.kitchen,
+            removeItem.floors,
+            removeItem.bathrooms,
+            removeItem.furnished,
+            removeItem.sale
+        )
+        CoroutineScope(Dispatchers.IO).launch {
+            database.propertiesDao().deleteProperty(property)
+            database.propertyDetails().deletePropertyDetails(propertyDetail)
+        }
+        binding.recyclerView.adapter?.notifyItemRemoved(position)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (toggle.onOptionsItemSelected(item)) {
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 }
