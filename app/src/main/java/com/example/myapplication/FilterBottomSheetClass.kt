@@ -24,12 +24,12 @@ class FilterBottomSheetFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val database = DataBaseBuilder.getInstance(requireContext())
-        // Initialize and set up your filter UI elements and logic here
+
         val applyFiltersButton = binding.btnApplyFilters
         val spinnerSize = binding.spinnerSize
         val spinnerCity = binding.spinnerCity
 
-        // Create an ArrayAdapter for the spinners and populate them with values
+        // Creating ArrayAdapter for the spinners and populate them with values
         val sizeAdapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_spinner_item,
@@ -42,7 +42,7 @@ class FilterBottomSheetFragment : BottomSheetDialogFragment() {
             arrayOf("Lahore", "Islamabad", "Gujarat") // Add your city names here
         )
 
-        // Set the dropdown layout style
+        // Setting up dropdown layout style
         sizeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
@@ -62,7 +62,8 @@ class FilterBottomSheetFragment : BottomSheetDialogFragment() {
             filteredData.observe(viewLifecycleOwner) {
                 (requireActivity() as FilterListener).filterApplied(it)
             }
-            // Apply the selected filters and close the bottom sheet
+            //Lifecycleowner: It is used to observe LiveData objects in the context of a Fragment's view lifecycle
+
             dismiss()
         }
     }

@@ -14,7 +14,7 @@ import com.example.myapplication.dataStorage.room.DataBaseHelper
 import com.example.myapplication.dataStorage.room.user.UserEntity
 import com.example.myapplication.databinding.ActivityRecyclerBinding
 
-class RecyclerActivity : AppCompatActivity(), ItemClickListnerInterface {
+class AllUsersActivity : AppCompatActivity(), ItemClickListnerInterface {
     private lateinit var binding: ActivityRecyclerBinding
     private lateinit var database: DataBaseHelper
     private lateinit var userList: List<UserEntity>
@@ -24,8 +24,6 @@ class RecyclerActivity : AppCompatActivity(), ItemClickListnerInterface {
         binding = ActivityRecyclerBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-
-
 
         database = DataBaseBuilder.getInstance(this)
         database.userDao().getAllUsers().observe(this) {

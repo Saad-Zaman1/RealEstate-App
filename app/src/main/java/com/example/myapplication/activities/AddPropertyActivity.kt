@@ -77,7 +77,7 @@ class AddPropertyActivity : AppCompatActivity() {
             "2 Floors",
             "3 Floors",
             "4 Floors",
-            "5 Floors",
+            "5+ Floors",
         )
 
         // Set up ArrayAdapter for spinners
@@ -114,18 +114,18 @@ class AddPropertyActivity : AppCompatActivity() {
                     intent.getStringExtra(GlobalVariables.city)
                 )
             )
-            binding.editTextAddress.text =
-                Editable.Factory.getInstance()
-                    .newEditable(intent.getStringExtra(GlobalVariables.address))
+
+            //Editable is an interface in Android used to represent text that can be modified (editable).
+            binding.editTextAddress.setText(intent.getStringExtra(GlobalVariables.address))
+
 
             binding.spinnerSize.setSelection(
                 (binding.spinnerSize.adapter as ArrayAdapter<String>).getPosition(
                     intent.getStringExtra(GlobalVariables.size)
                 )
             )
-            binding.editTextPropertyName.text =
-                Editable.Factory.getInstance()
-                    .newEditable(intent.getStringExtra(GlobalVariables.propertyName))
+            binding.editTextPropertyName.setText(intent.getStringExtra(GlobalVariables.propertyName))
+
             binding.spinnerRooms.setSelection(
                 (binding.spinnerRooms.adapter as ArrayAdapter<String>).getPosition(
                     intent.getStringExtra(GlobalVariables.rooms)
@@ -156,9 +156,7 @@ class AddPropertyActivity : AppCompatActivity() {
             binding.radioButtonRent.isChecked =
                 intent.getStringExtra(GlobalVariables.isSale) == "Rent"
 
-            binding.editTextPrice.text =
-                Editable.Factory.getInstance()
-                    .newEditable(intent.getStringExtra(GlobalVariables.price))
+            binding.editTextPrice.setText(intent.getStringExtra(GlobalVariables.price))
 
             val propertyID = intent.getStringExtra(GlobalVariables.propertyID)!!.toLong()
             val propertyDetailsId =
@@ -219,7 +217,6 @@ class AddPropertyActivity : AppCompatActivity() {
                 if (Validator.checkEmpty(price, "price").isNotEmpty()) {
                     binding.editTextPrice.error = Validator.checkEmpty(price, "price")
                     return@setOnClickListener
-
                 }
 
                 val furnished = if (isFurnished) "Furnished" else "Non Furnished"
@@ -270,25 +267,25 @@ class AddPropertyActivity : AppCompatActivity() {
                         }
                     }
                 }
-                // Retrieve user-selected values
+
                 binding.spinnerCity.setSelection(0)
-                binding.editTextAddress.text.clear() // Clear the address EditText
-                binding.spinnerSize.setSelection(0) // Set the default selection in the spinner
-                binding.editTextPropertyName.text.clear() // Clear the property name EditText
-                binding.spinnerRooms.setSelection(0) // Set the default selection in the spinner
-                binding.spinnerKitchens.setSelection(0) // Set the default selection in the spinner
-                binding.spinnerFloor.setSelection(0) // Set the default selection in the spinner
-                binding.spinnerBathrooms.setSelection(0) // Set the default selection in the spinner
-                binding.editTextPrice.text.clear() // Clear the price EditText
+                binding.editTextAddress.text.clear()
+                binding.spinnerSize.setSelection(0)
+                binding.editTextPropertyName.text.clear()
+                binding.spinnerRooms.setSelection(0)
+                binding.spinnerKitchens.setSelection(0)
+                binding.spinnerFloor.setSelection(0)
+                binding.spinnerBathrooms.setSelection(0)
+                binding.editTextPrice.text.clear()
                 binding.radioButtonFurnished.isChecked =
-                    true // Set furnished radio button to default
-                binding.radioButtonSale.isChecked = true // S
+                    true
+                binding.radioButtonSale.isChecked = true
             }
         } else {
 
             binding.buttonSubmit.setOnClickListener {
 
-                // Retrieve user-selected values
+                // Retrieving user-selected values
                 val selectedCity = binding.spinnerCity.selectedItem.toString()
                 val address = binding.editTextAddress.text.toString()
                 val selectedSize = binding.spinnerSize.selectedItem.toString()
@@ -382,7 +379,7 @@ class AddPropertyActivity : AppCompatActivity() {
                             )
                         )
 
-                        // Display a toast message on the main thread
+                        // Displaying a toast message on the main thread
                         withContext(Dispatchers.Main) {
                             Toast.makeText(
                                 this@AddPropertyActivity,
@@ -402,18 +399,18 @@ class AddPropertyActivity : AppCompatActivity() {
                         }
                     }
                 }
-                // Retrieve user-selected values
-                binding.spinnerCity.setSelection(0) // Set the default selection in the spinner
-                binding.editTextAddress.text.clear() // Clear the address EditText
-                binding.spinnerSize.setSelection(0) // Set the default selection in the spinner
-                binding.editTextPropertyName.text.clear() // Clear the property name EditText
-                binding.spinnerRooms.setSelection(0) // Set the default selection in the spinner
-                binding.spinnerKitchens.setSelection(0) // Set the default selection in the spinner
-                binding.spinnerFloor.setSelection(0) // Set the default selection in the spinner
-                binding.spinnerBathrooms.setSelection(0) // Set the default selection in the spinner
-                binding.editTextPrice.text.clear() // Clear the price EditText
+
+                binding.spinnerCity.setSelection(0)
+                binding.editTextAddress.text.clear()
+                binding.spinnerSize.setSelection(0)
+                binding.editTextPropertyName.text.clear()
+                binding.spinnerRooms.setSelection(0)
+                binding.spinnerKitchens.setSelection(0)
+                binding.spinnerFloor.setSelection(0)
+                binding.spinnerBathrooms.setSelection(0)
+                binding.editTextPrice.text.clear()
                 binding.radioButtonFurnished.isChecked =
-                    true // Set furnished radio button to default
+                    true
                 binding.radioButtonSale.isChecked = true // S
 
             }

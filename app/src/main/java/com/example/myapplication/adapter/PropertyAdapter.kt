@@ -13,7 +13,7 @@ import com.example.myapplication.models.PropertyWithDetails
 class PropertyAdapter(
     private val propertyList: List<PropertyWithDetails>,
     private val itemclicklistner: PropertyClickListnerInterface,
-    private val itemSwipeListner: PropertyClickListnerInterface,
+    private val itemDeleteListner: PropertyClickListnerInterface,
 
     ) :
     Adapter<PropertyAdapter.MyViewHolder>() {
@@ -53,7 +53,7 @@ class PropertyAdapter(
 
 
         holder.binding.deletebtn.setOnClickListener {
-            itemSwipeListner.onPropertyDelete(position)
+            itemDeleteListner.onPropertyDelete(position)
         }
         holder.itemView.setOnClickListener {
             itemclicklistner.onPropertyClick(position)

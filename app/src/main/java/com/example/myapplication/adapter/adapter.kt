@@ -38,9 +38,9 @@ class adapter(
     override fun getItemCount() = userList.size
 
     // Update data when it changes
-    fun updateData(newList: List<UserEntity>) {
-        userList.clear()
-        userList.addAll(newList)
-        notifyDataSetChanged()
-    }
+//    fun updateData(newList: List<UserEntity>) {
+//        userList.clear()
+//        userList.addAll(newList)
+//        notifyDataSetChanged()
+//    }
 }

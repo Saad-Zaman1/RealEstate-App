@@ -11,7 +11,7 @@ import androidx.room.Update
 interface UserDAO {
 
     //Room is competible with live data and automatically run this in background thread is return type is live data
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert()
     suspend fun insertUser(user: UserEntity): Long
 
     @Update

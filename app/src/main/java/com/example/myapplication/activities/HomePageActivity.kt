@@ -9,9 +9,7 @@ import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.adapter.PropertyAdapter
 import com.example.myapplication.dataStorage.SharedPrefs
@@ -55,7 +53,6 @@ class HomePageActivity : AppCompatActivity(), FilterListener, PropertyClickListn
             userData = database.userDao().validateEmail(userEmail)!!
 
             withContext(Dispatchers.Main) {
-                // Update UI using data binding
                 usernameTextView.text = userData.username
                 emailTextView.text = userData.email
             }
@@ -63,11 +60,8 @@ class HomePageActivity : AppCompatActivity(), FilterListener, PropertyClickListn
         // Side drawable code
         toggle = ActionBarDrawerToggle(this, binding.drawerLayout, R.string.open, R.string.close)
         binding.drawerLayout.addDrawerListener(toggle)
-
         toggle.syncState()
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)   //Showing hamburger button
 
 
         binding.navigationView.setNavigationItemSelectedListener {
@@ -125,7 +119,7 @@ class HomePageActivity : AppCompatActivity(), FilterListener, PropertyClickListn
                 }
 
                 R.id.menu_all_users -> {
-                    val intent = Intent(this, RecyclerActivity::class.java)
+                    val intent = Intent(this, AllUsersActivity::class.java)
                     startActivity(intent)
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
                 }
@@ -174,7 +168,6 @@ class HomePageActivity : AppCompatActivity(), FilterListener, PropertyClickListn
                 GlobalVariables.propertyID, clickedUser.propertyId.toString()
             )
         }
-
         intent.putExtras(bundle)
         startActivity(intent)
     }
