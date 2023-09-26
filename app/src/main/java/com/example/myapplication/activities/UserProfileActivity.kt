@@ -23,7 +23,8 @@ import kotlinx.coroutines.withContext
 class UserProfileActivity : AppCompatActivity() {
     private lateinit var userData: UserEntity
     private lateinit var binding: ActivityUserProfileBinding
-
+    private lateinit var username: String
+    private lateinit var userPhone: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUserProfileBinding.inflate(layoutInflater)
@@ -34,25 +35,35 @@ class UserProfileActivity : AppCompatActivity() {
         val userEmail = sP.getString(GlobalVariables.userEmail, "")
 
         val database = DataBaseBuilder.getInstance(this)
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                userData = database.userDao().validateEmail(userEmail)!!
-                withContext(Dispatchers.Main) {
-                    binding.editTextUsername.setText(userData.username)
-                    binding.editTextPhone.setText(userData.phone)
-                }
-            } catch (e: Exception) {
-                Log.e("Database Error", "Error updating property: ${e.message}", e)
-                // Handle the error as needed, e.g., display an error toast
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(
-                        this@UserProfileActivity,
-                        "Error updating property",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
+
+        database.userDao().validateEmail(userEmail).observe(this) {
+            userData = it
+            username = it.username
+            userPhone = it.phone
+            binding.editTextUsername.setText(username)
+            binding.editTextPhone.setText(userPhone)
         }
+
+
+//        CoroutineScope(Dispatchers.IO).launch {
+//            try {
+//                userData = database.userDao().validateEmail(userEmail)!!
+//                withContext(Dispatchers.Main) {
+//                    binding.editTextUsername.setText(userData.username)
+//                    binding.editTextPhone.setText(userData.phone)
+//                }
+//            } catch (e: Exception) {
+//                Log.e("Database Error", "Error updating property: ${e.message}", e)
+//                // Handle the error as needed, e.g., display an error toast
+//                withContext(Dispatchers.Main) {
+//                    Toast.makeText(
+//                        this@UserProfileActivity,
+//                        "Error updating property",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+//            }
+//        }
         binding.buttonUpdate.setOnClickListener {
             val username = binding.editTextUsername.text.toString()
             val userPhone = binding.editTextPhone.text.toString()
@@ -83,8 +94,8 @@ class UserProfileActivity : AppCompatActivity() {
                 database.userDao().updateUser(updatedUser)
             }
             Toast.makeText(this, "Profile Updated", Toast.LENGTH_SHORT).show()
-            binding.editTextUsername.text.clear()
-            binding.editTextPhone.text.clear()
+            binding.editTextUsername.setText("")
+            binding.editTextPhone.setText("")
         }
     }
 }

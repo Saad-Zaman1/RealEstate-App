@@ -12,23 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tvaddproperty"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Add Property"
-            android:gravity="center"
-            android:textSize="25sp"
-            android:textColor="@color/app_theme"
-            android:textStyle="bold"
-            android:layout_marginTop="16dp" />
 
         <!-- City Dropdown (Spinner) -->
         <Spinner
             android:id="@+id/spinnerCity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvaddproperty"
             android:layout_marginTop="26dp"
             android:hint="Select City" />
 

@@ -30,7 +30,7 @@ object Validator {
 
     fun validateEmail(text: String): String {
         if (text.isNotEmpty()) {
-            if (!text.matches(Regex("[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}"))) {
+            if (!text.matches(Regex("[a-zA-Z0-9._-]+@(gmail\\.com|yahoo\\.com)$"))) {
                 return "Please enter valid email"
             }
         } else {

@@ -11,22 +11,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/allpropertiesheading"
-            android:layout_marginTop="5dp"
-            android:textSize="25dp"
-            android:textStyle="bold"
-            android:padding="5dp"
-            android:gravity="center_horizontal"
-            android:text="All Properties" />
+
         <!-- RecyclerView below the buttons -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/allpropertiesheading"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:scrollbars="vertical" />

@@ -20,8 +20,10 @@ interface UserDAO {
     //
 //    @Delete
 //    suspend fun deleteUser(user: UserEntity)
+//    @Query("select * from userAccounts")
+//    fun getAllUsers(): LiveData<MutableList<UserEntity>>
     @Query("select * from userAccounts")
-    fun getAllUsers(): LiveData<MutableList<UserEntity>>
+    fun getAllUsers(): List<UserEntity>
 
     @Query("select * from userAccounts where email = :email1 AND password = :pass")
     suspend fun validateEmailAndPhone(email1: String, pass: String): UserEntity?
@@ -30,7 +32,7 @@ interface UserDAO {
     suspend fun validatePhone(phonee: String): UserEntity?
 
     @Query("select * from userAccounts where email = :emaii")
-    suspend fun validateEmail(emaii: String): UserEntity?
+    fun validateEmail(emaii: String): LiveData<UserEntity>
 
     @Query("select * from userAccounts where password = :pass")
     suspend fun validatePassword(pass: String): UserEntity?

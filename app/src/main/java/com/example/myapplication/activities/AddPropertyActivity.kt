@@ -14,6 +14,7 @@ import com.example.myapplication.dataStorage.room.properties.PropertyEntity
 import com.example.myapplication.dataStorage.room.propertydetails.PropertyDetailsEntity
 import com.example.myapplication.databinding.ActivityAddPropertyBinding
 import com.example.myapplication.global.GlobalVariables
+import com.example.myapplication.models.PropertyWithDetails
 import com.example.myapplication.utils.Validator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -31,6 +32,7 @@ class AddPropertyActivity : AppCompatActivity() {
         binding = ActivityAddPropertyBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        title = "Add Property"
         val intent: Intent = intent
         var database = DataBaseBuilder.getInstance(this)
         // Define predefined values for spinners
@@ -105,62 +107,67 @@ class AddPropertyActivity : AppCompatActivity() {
         binding.spinnerBathrooms.adapter = bathroomAdapter
         binding.spinnerFloor.adapter = floorAdapter
 //        // Handle the submit button click event here
+        val data: PropertyWithDetails? =
+            intent.getSerializableExtra("objproperty") as PropertyWithDetails
 
-        if (intent.getStringExtra("city") != null) {
+        if (data?.propertyId != null) {
             binding.buttonSubmit.text = "Update Property"
-            binding.tvaddproperty.text = "Update Property"
+
+            title = "Update Property"
             binding.spinnerCity.setSelection(
                 (binding.spinnerCity.adapter as ArrayAdapter<String>).getPosition(
-                    intent.getStringExtra(GlobalVariables.city)
+//                    intent.getStringExtra(GlobalVariables.city)
+                    data?.city
                 )
             )
 
-            //Editable is an interface in Android used to represent text that can be modified (editable).
-            binding.editTextAddress.setText(intent.getStringExtra(GlobalVariables.address))
+            binding.editTextAddress.setText(data?.address)
 
 
             binding.spinnerSize.setSelection(
                 (binding.spinnerSize.adapter as ArrayAdapter<String>).getPosition(
-                    intent.getStringExtra(GlobalVariables.size)
+
+                    data?.size
                 )
             )
-            binding.editTextPropertyName.setText(intent.getStringExtra(GlobalVariables.propertyName))
+            binding.editTextPropertyName.setText(data?.propertyName)
 
             binding.spinnerRooms.setSelection(
                 (binding.spinnerRooms.adapter as ArrayAdapter<String>).getPosition(
-                    intent.getStringExtra(GlobalVariables.rooms)
+                    data?.rooms
                 )
             )
             binding.spinnerKitchens.setSelection(
                 (binding.spinnerKitchens.adapter as ArrayAdapter<String>).getPosition(
-                    intent.getStringExtra(GlobalVariables.kitchen)
+                    data?.kitchen
                 )
             )
             binding.spinnerFloor.setSelection(
                 (binding.spinnerFloor.adapter as ArrayAdapter<String>).getPosition(
-                    intent.getStringExtra(GlobalVariables.floors)
+                    data?.floors
                 )
             )
             binding.spinnerBathrooms.setSelection(
                 (binding.spinnerBathrooms.adapter as ArrayAdapter<String>).getPosition(
-                    intent.getStringExtra(GlobalVariables.bathrooms)
+                    data?.bathrooms
                 )
             )
             binding.radioButtonFurnished.isChecked =
-                intent.getStringExtra(GlobalVariables.isFurnished) == "Furnished"
+                data?.furnished == "Furnished"
             binding.radioButtonNonFurnished.isChecked =
-                intent.getStringExtra(GlobalVariables.isFurnished) != "Furnished"
+                data?.furnished != "Furnished"
 
-            binding.radioButtonSale.isChecked =
-                intent.getStringExtra(GlobalVariables.isSale) == "Sale"
-            binding.radioButtonRent.isChecked =
-                intent.getStringExtra(GlobalVariables.isSale) == "Rent"
+            binding.radioButtonSale.isChecked = data?.sale == "Sale"
 
-            binding.editTextPrice.setText(intent.getStringExtra(GlobalVariables.price))
 
-            val propertyID = intent.getStringExtra(GlobalVariables.propertyID)!!.toLong()
-            val propertyDetailsId =
-                intent.getStringExtra(GlobalVariables.propertyDetailsId)!!.toLong()
+            binding.radioButtonRent.isChecked = data?.sale == "Rent"
+
+
+            binding.editTextPrice.setText(data?.price)
+
+            val propertyID = data?.propertyId!!.toLong()
+            val propertyDetailsId = data?.propertyDetailsId!!.toLong()
+
             binding.buttonSubmit.setOnClickListener {
 
                 val selectedCity = binding.spinnerCity.selectedItem.toString()
@@ -223,50 +230,35 @@ class AddPropertyActivity : AppCompatActivity() {
                 val saleRent = if (isForSale) "Sale" else "Rent"
 
                 val userEmail = SharedPrefs(this).getString(GlobalVariables.userEmail, "")
-
-                CoroutineScope(Dispatchers.IO).launch {
-                    try {
-                        val updatedProperty = PropertyEntity(
-                            propertyID, // The ID of the property you want to update
-                            address, // Updated address
-                            selectedCity, // Updated city
-                            userEmail // User email remains the same
-                        )
-                        database.propertiesDao().updateProperty(updatedProperty)
-
-                        val updatedPropertyDetails = PropertyDetailsEntity(
-                            propertyDetailsId,
-                            propertyID,
-                            selectedSize,
-                            propertyName,
-                            price,
-                            selectedRooms,
-                            selectedKitchens,
-                            selectedFloor,
-                            selectedBathrooms,
-                            furnished,
-                            saleRent
-                        )
-                        database.propertyDetails().updateProperty(updatedPropertyDetails)
-                        withContext(Dispatchers.Main) {
-                            Toast.makeText(
-                                this@AddPropertyActivity,
-                                "Property updated successfully",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    } catch (e: Exception) {
-                        Log.e("Database Error", "Error updating property: ${e.message}", e)
-                        // Handle the error as needed, e.g., display an error toast
-                        withContext(Dispatchers.Main) {
-                            Toast.makeText(
-                                this@AddPropertyActivity,
-                                "Error updating property",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
+                val updatedProperty = PropertyEntity(
+                    propertyID,
+                    address,
+                    selectedCity,
+                    userEmail
+                )
+                val job = CoroutineScope(Dispatchers.IO).async {
+                    database.propertiesDao().updateProperty(updatedProperty)
                 }
+
+                val updatedPropertyDetails = PropertyDetailsEntity(
+                    propertyDetailsId,
+                    propertyID,
+                    selectedSize,
+                    propertyName,
+                    price,
+                    selectedRooms,
+                    selectedKitchens,
+                    selectedFloor,
+                    selectedBathrooms,
+                    furnished,
+                    saleRent
+                )
+                CoroutineScope(Dispatchers.IO).launch {
+                    job.await()
+                    database.propertyDetails().updateProperty(updatedPropertyDetails)
+                }
+
+                Toast.makeText(this, "Property saved", Toast.LENGTH_SHORT).show()
 
                 binding.spinnerCity.setSelection(0)
                 binding.editTextAddress.text.clear()

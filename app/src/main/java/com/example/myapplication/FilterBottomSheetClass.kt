@@ -59,11 +59,11 @@ class FilterBottomSheetFragment : BottomSheetDialogFragment() {
             val saleRent = if (isForSale) "Sale" else "Rent"
             val filteredData = database.propertiesDao()
                 .getFilteredProperties(furnished, saleRent, selectedSize, selectedCity)
-            filteredData.observe(viewLifecycleOwner) {
+            filteredData.observe(this) {
+//                FilterListener.filterApplied(it)
                 (requireActivity() as FilterListener).filterApplied(it)
             }
             //Lifecycleowner: It is used to observe LiveData objects in the context of a Fragment's view lifecycle
-
             dismiss()
         }
     }

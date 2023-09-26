@@ -1,5 +1,8 @@
 package com.example.myapplication.models
 
+import android.os.Parcelable
+import java.io.Serializable
+
 data class PropertyWithDetails(
     val propertyId: Long,
     val propertyDetailsId: Long,
@@ -15,4 +18,4 @@ data class PropertyWithDetails(
     val bathrooms: String,
     val furnished: String,
     val sale: String
-)
+) : Serializable

@@ -11,8 +11,7 @@ import com.example.myapplication.dataStorage.room.user.UserEntity
 
 @Database(
     entities = [UserEntity::class, PropertyEntity::class, PropertyDetailsEntity::class],
-    version = 1,
-    exportSchema = false
+    version = 1
 )
 
 abstract class DataBaseHelper : RoomDatabase() {

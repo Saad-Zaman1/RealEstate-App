@@ -17,8 +17,17 @@ class PropertyAdapter(
 
     ) :
     Adapter<PropertyAdapter.MyViewHolder>() {
-    class MyViewHolder(val binding: PropertyItemBinding) : ViewHolder(binding.root) {
-
+    inner class MyViewHolder(val binding: PropertyItemBinding) : ViewHolder(binding.root) {
+        init {
+            itemView.setOnClickListener {
+                val position = adapterPosition
+                itemclicklistner.onPropertyClick(propertyList[position])
+            }
+            binding.deletebtn.setOnClickListener {
+                val position = adapterPosition
+                itemDeleteListner.onPropertyDelete(propertyList[position], position)
+            }
+        }
     }
 
     override fun onCreateViewHolder(
@@ -36,8 +45,7 @@ class PropertyAdapter(
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val property = propertyList[position]
-//        val itemclick = itemclicklistner.onPropertyClick(position)
-//        val itemswipe = itemSwipeListner.onPropertySwipe(position)
+
         holder.binding.let {
             it.textPropertyName.text = property.propertyName
             it.textPropertyBathrooms.text = property.bathrooms
@@ -49,14 +57,6 @@ class PropertyAdapter(
             it.textPropertySaleRent.text = property.sale
             it.textPropertyAddress.text = property.address
             it.textPropertySize.text = property.size
-        }
-
-
-        holder.binding.deletebtn.setOnClickListener {
-            itemDeleteListner.onPropertyDelete(position)
-        }
-        holder.itemView.setOnClickListener {
-            itemclicklistner.onPropertyClick(position)
         }
     }
 

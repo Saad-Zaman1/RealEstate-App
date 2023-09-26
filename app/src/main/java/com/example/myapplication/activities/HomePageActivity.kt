@@ -3,12 +3,17 @@ package com.example.myapplication.activities
 
 import FilterBottomSheetFragment
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.R
 import com.example.myapplication.adapter.PropertyAdapter
@@ -33,7 +38,8 @@ class HomePageActivity : AppCompatActivity(), FilterListener, PropertyClickListn
     private var userpropertytoggle: Boolean = false
     private lateinit var userData: UserEntity
     private lateinit var toggle: ActionBarDrawerToggle   //Hammberger sign in the app bar
-
+    private var username: String = ""
+    private var email: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,22 +47,33 @@ class HomePageActivity : AppCompatActivity(), FilterListener, PropertyClickListn
         val view = binding.root
         setContentView(view)
 
+        title = "All Properties"
         val database = DataBaseBuilder.getInstance(this)
         val sharedPref = SharedPrefs(this@HomePageActivity)
         val userEmail = sharedPref.getString(GlobalVariables.userEmail, "")
         val headerView = binding.navigationView.getHeaderView(0)
+
         val usernameTextView = headerView.findViewById<TextView>(R.id.header_user_name)
         val emailTextView = headerView.findViewById<TextView>(R.id.header_user_email)
 
-
-        CoroutineScope(Dispatchers.IO).launch {
-            userData = database.userDao().validateEmail(userEmail)!!
-
-            withContext(Dispatchers.Main) {
-                usernameTextView.text = userData.username
-                emailTextView.text = userData.email
-            }
+        database.userDao().validateEmail(userEmail)?.observe(this@HomePageActivity) {
+            username = it.username
+            email = it.email
+            usernameTextView.text = username
+            emailTextView.text = email
         }
+
+//        CoroutineScope(Dispatchers.IO).launch {
+//             userData = database.userDao().validateEmail(userEmail)
+//                username = userData.name
+//                email = userData.phone
+//
+////          //            withContext(Dispatchers.Main) {
+//                usernameTextView.text = username
+//                emailTextView.text = email
+//            }
+//        }
+
         // Side drawable code
         toggle = ActionBarDrawerToggle(this, binding.drawerLayout, R.string.open, R.string.close)
         binding.drawerLayout.addDrawerListener(toggle)
@@ -67,8 +84,8 @@ class HomePageActivity : AppCompatActivity(), FilterListener, PropertyClickListn
         binding.navigationView.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.menu_all_properties -> {
-                    // Populating all properties in recycler view ! Look for alternate approach
-                    binding.allpropertiesheading.text = "All Properties"
+                    // Populating all properties in recycler view
+                    title = "All Properties"
                     database.propertiesDao().getAllProperties().observe(this) { data ->
                         propertyList = data
                         binding.recyclerView.adapter =
@@ -87,7 +104,7 @@ class HomePageActivity : AppCompatActivity(), FilterListener, PropertyClickListn
 
                 R.id.menu_my_property -> {
                     userpropertytoggle = true
-                    binding.allpropertiesheading.text = "My Properties"
+                    title = "My Properties"
                     database.propertiesDao().getCurrentUserProperties(userEmail)
                         .observe(this) { data ->
                             propertyList = data
@@ -134,7 +151,7 @@ class HomePageActivity : AppCompatActivity(), FilterListener, PropertyClickListn
         }
 //Show all properties in the opening of app
         if (!userpropertytoggle) {
-            binding.allpropertiesheading.text = "All Properties"
+
             database.propertiesDao().getAllProperties().observe(this) {
                 propertyList = it
                 binding.recyclerView.adapter = PropertyAdapter(propertyList, this, this)
@@ -148,65 +165,47 @@ class HomePageActivity : AppCompatActivity(), FilterListener, PropertyClickListn
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
     }
 
-    override fun onPropertyClick(position: Int) {
-        val clickedUser = propertyList[position]
-        val intent = Intent(this, AddPropertyActivity::class.java)
-        val bundle = Bundle().apply {
-            putString(GlobalVariables.city, clickedUser.city)
-            putString(GlobalVariables.address, clickedUser.address)
-            putString(GlobalVariables.size, clickedUser.size)
-            putString(GlobalVariables.propertyName, clickedUser.propertyName)
-            putString(GlobalVariables.rooms, clickedUser.rooms)
-            putString(GlobalVariables.kitchen, clickedUser.kitchen)
-            putString(GlobalVariables.floors, clickedUser.floors)
-            putString(GlobalVariables.bathrooms, clickedUser.bathrooms)
-            putString(GlobalVariables.isFurnished, clickedUser.furnished)
-            putString(GlobalVariables.isSale, clickedUser.sale)
-            putString(GlobalVariables.price, clickedUser.price)
-            putString(GlobalVariables.propertyDetailsId, clickedUser.propertyDetailsId.toString())
-            putString(
-                GlobalVariables.propertyID, clickedUser.propertyId.toString()
-            )
-        }
-        intent.putExtras(bundle)
-        startActivity(intent)
-    }
-
-    override fun onPropertyDelete(position: Int) {
-
-        val removeItem = propertyList[position]
-        val database = DataBaseBuilder.getInstance(this@HomePageActivity)
-        val property = PropertyEntity(
-            removeItem.propertyId,
-            removeItem.address,
-            removeItem.city,
-            removeItem.userEmail
-        )
-        val propertyDetail = PropertyDetailsEntity(
-            removeItem.propertyDetailsId,
-            removeItem.propertyId,
-            removeItem.size,
-            removeItem.propertyName,
-            removeItem.price,
-            removeItem.rooms,
-            removeItem.kitchen,
-            removeItem.floors,
-            removeItem.bathrooms,
-            removeItem.furnished,
-            removeItem.sale
-        )
-        CoroutineScope(Dispatchers.IO).launch {
-            database.propertiesDao().deleteProperty(property)
-            database.propertyDetails().deletePropertyDetails(propertyDetail)
-        }
-        binding.recyclerView.adapter?.notifyItemRemoved(position)
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (toggle.onOptionsItemSelected(item)) {
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onPropertyClick(position: PropertyWithDetails) {
+        val intent = Intent(this, AddPropertyActivity::class.java)
+        intent.putExtra("objproperty", position)
+        startActivity(intent)
+    }
+
+    override fun onPropertyDelete(position: PropertyWithDetails, currenposition: Int) {
+
+        val database = DataBaseBuilder.getInstance(this@HomePageActivity)
+        val property = PropertyEntity(
+            position.propertyId,
+            position.address,
+            position.city,
+            position.userEmail
+        )
+        val propertyDetail = PropertyDetailsEntity(
+            position.propertyDetailsId,
+            position.propertyId,
+            position.size,
+            position.propertyName,
+            position.price,
+            position.rooms,
+            position.kitchen,
+            position.floors,
+            position.bathrooms,
+            position.furnished,
+            position.sale
+        )
+        CoroutineScope(Dispatchers.IO).launch {
+            database.propertiesDao().deleteProperty(property)
+            database.propertyDetails().deletePropertyDetails(propertyDetail)
+        }
+        Toast.makeText(this, "Property Deleted", Toast.LENGTH_SHORT).show()
+        binding.recyclerView.adapter?.notifyItemRemoved(currenposition)
     }
 
 }
