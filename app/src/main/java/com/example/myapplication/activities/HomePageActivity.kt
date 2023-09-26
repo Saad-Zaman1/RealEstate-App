@@ -63,17 +63,6 @@ class HomePageActivity : AppCompatActivity(), FilterListener, PropertyClickListn
             emailTextView.text = email
         }
 
-//        CoroutineScope(Dispatchers.IO).launch {
-//             userData = database.userDao().validateEmail(userEmail)
-//                username = userData.name
-//                email = userData.phone
-//
-////          //            withContext(Dispatchers.Main) {
-//                usernameTextView.text = username
-//                emailTextView.text = email
-//            }
-//        }
-
         // Side drawable code
         toggle = ActionBarDrawerToggle(this, binding.drawerLayout, R.string.open, R.string.close)
         binding.drawerLayout.addDrawerListener(toggle)

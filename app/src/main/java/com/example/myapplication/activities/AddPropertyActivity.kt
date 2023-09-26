@@ -108,7 +108,7 @@ class AddPropertyActivity : AppCompatActivity() {
         binding.spinnerFloor.adapter = floorAdapter
 //        // Handle the submit button click event here
         val data: PropertyWithDetails? =
-            intent.getSerializableExtra("objproperty") as PropertyWithDetails
+            intent.getSerializableExtra("objproperty") as? PropertyWithDetails
 
         if (data?.propertyId != null) {
             binding.buttonSubmit.text = "Update Property"
