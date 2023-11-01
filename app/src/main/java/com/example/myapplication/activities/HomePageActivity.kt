@@ -36,10 +36,8 @@ class HomePageActivity : AppCompatActivity(), FilterListener, PropertyClickListn
     private lateinit var binding: HomepageActivityBinding
     private lateinit var propertyList: List<PropertyWithDetails>
     private var userpropertytoggle: Boolean = false
-    private lateinit var userData: UserEntity
     private lateinit var toggle: ActionBarDrawerToggle   //Hammberger sign in the app bar
-    private var username: String = ""
-    private var email: String = ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,11 +54,9 @@ class HomePageActivity : AppCompatActivity(), FilterListener, PropertyClickListn
         val usernameTextView = headerView.findViewById<TextView>(R.id.header_user_name)
         val emailTextView = headerView.findViewById<TextView>(R.id.header_user_email)
 
-        database.userDao().validateEmail(userEmail)?.observe(this@HomePageActivity) {
-            username = it.username
-            email = it.email
-            usernameTextView.text = username
-            emailTextView.text = email
+        database.userDao().observeUserDate(userEmail)?.observe(this@HomePageActivity) {
+            usernameTextView.text = it.username
+            emailTextView.text = it.email
         }
 
         // Side drawable code

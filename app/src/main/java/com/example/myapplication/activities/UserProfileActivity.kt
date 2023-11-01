@@ -23,8 +23,6 @@ import kotlinx.coroutines.withContext
 class UserProfileActivity : AppCompatActivity() {
     private lateinit var userData: UserEntity
     private lateinit var binding: ActivityUserProfileBinding
-    private lateinit var username: String
-    private lateinit var userPhone: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUserProfileBinding.inflate(layoutInflater)
@@ -36,34 +34,12 @@ class UserProfileActivity : AppCompatActivity() {
 
         val database = DataBaseBuilder.getInstance(this)
 
-        database.userDao().validateEmail(userEmail).observe(this) {
-            userData = it
-            username = it.username
-            userPhone = it.phone
-            binding.editTextUsername.setText(username)
-            binding.editTextPhone.setText(userPhone)
+        CoroutineScope(Dispatchers.IO).launch {
+            val userProfile = database.userDao().validateEmail(userEmail)
+            binding.editTextUsername.setText(userProfile!!.username)
+            binding.editTextPhone.setText(userProfile!!.phone)
+            userData = userProfile
         }
-
-
-//        CoroutineScope(Dispatchers.IO).launch {
-//            try {
-//                userData = database.userDao().validateEmail(userEmail)!!
-//                withContext(Dispatchers.Main) {
-//                    binding.editTextUsername.setText(userData.username)
-//                    binding.editTextPhone.setText(userData.phone)
-//                }
-//            } catch (e: Exception) {
-//                Log.e("Database Error", "Error updating property: ${e.message}", e)
-//                // Handle the error as needed, e.g., display an error toast
-//                withContext(Dispatchers.Main) {
-//                    Toast.makeText(
-//                        this@UserProfileActivity,
-//                        "Error updating property",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                }
-//            }
-//        }
         binding.buttonUpdate.setOnClickListener {
             val username = binding.editTextUsername.text.toString()
             val userPhone = binding.editTextPhone.text.toString()
@@ -85,7 +61,7 @@ class UserProfileActivity : AppCompatActivity() {
                 userData.id,
                 username,
                 userPhone,
-                userEmail,
+                userData.email,
                 userData.password
             )
 

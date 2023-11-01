@@ -32,7 +32,10 @@ interface UserDAO {
     suspend fun validatePhone(phonee: String): UserEntity?
 
     @Query("select * from userAccounts where email = :emaii")
-    fun validateEmail(emaii: String): LiveData<UserEntity>
+    suspend fun validateEmail(emaii: String): UserEntity?
+
+    @Query("select * from userAccounts where email = :email")
+    fun observeUserDate(email: String): LiveData<UserEntity>
 
     @Query("select * from userAccounts where password = :pass")
     suspend fun validatePassword(pass: String): UserEntity?

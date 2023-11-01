@@ -81,7 +81,7 @@ class SignupActivity : AppCompatActivity() {
                     )
                     Log.i("isExist", "$isExistEmail")
                     CoroutineScope(Dispatchers.Main).launch {
-                        if (isExistEmail != null) {
+                        if (isExistEmail?.email != null) {
                             binding.etEmail.error = "Email already exists"
                         } else if (isExistPhone != null) {
                             binding.etPhone.error = "Phone already exists"
